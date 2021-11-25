@@ -1,0 +1,124 @@
+\chapter{Background \& Objectives}
+\section{Background}
+The aim of the project was to make a fully customisable light emitting diode (LED) controller for the use in dioramas and model scenarios. It was essential to build capacity within the program that allowed for future expansion to accommodate a range of outputs and inputs. The concept of the program was to enable the user to create many lighting sequences. The lighting sequences consisted of a range of brightness levels and an assortment of colours. A feature of the program was to ensure there were minimal constraints on the creation on the lighting sequences as possible. The user set this lighting sequence to display on a specific LED. Also, the user was able to define the conditions under which the LED profile would play (the LEDs trigger). Some of the base triggers initially formulated were time, temperature, weather, button and constant.
+
+The concept behind the customisable LED controller came from the current marketplace for model LED setups. Malcom Miniatures are the manufacturers of one of the most popular LED controllers on the marketplace \cite{MMinitures}. However, these controllers are limited as they display only two lighting sequences i.e. candles and fire. The lighting sequences can only be displayed on standard LEDs. The controller has no functionality or expandability to allow for the use of assignable LEDs. Also, these LEDs were restricted to either being ‘on’ or ‘off’; there was no way of assigning a condition to the program that allowed the user to control how the lighting sequence was displayed. This was undesirable as having LEDs powered constantly could be seen as an eyesore, unimaginative or not engaging for the user. Also, turning the unit on and off could have been a burden.
+
+\section{Analysis}
+The program was created on the ESP32 microcontroller. The reason it was used over the other brands of microcontrollers was due to the following reasons:
+
+\begin{itemize}
+\item In-built WIFI capability - The ESP32 has WIFI funtionality attached to the microcontoller. This is benificial as the program was able to host a website front end without the use of an external WIFI card. 
+
+\item Numerous output pins with pulse width modulation (PWM) enabled - On the ESP32 there were more PWM pins than most other microcontrollers. This allowed the use of a greater number of standard LEDs. The LEDs were assigned a sequence of brightness that were displayed rather than being fixed at an ‘on’ or ‘off’ state. 
+
+\item End-user specification - In the initial project specification the microcontroller that was identified as a 'must have' was the ESP32. This was due to the reasons outlined above. 
+\end {itemize}
+
+The main reason the ESP32 microcontroller was selected over the other brand of micro controllers (other than the in-built WIFI capacity) was because, as stated above, the ESP32 has more PWM pins. Comparatively, if we look at other micro controllers like the ESP8266(4 PWM pins) and the Arduino Nano(6 PWM pins) have a fraction of the PWM pins comparted to the ESP32 (25 PWM pins). 
+
+The program created allowed for two different LED outputs: standard LEDs and addressable LEDs. The operation of the LEDS by a user was via a website. Standard LEDs are regular LEDs with a fixed colour. When powered, these LEDs display a brightness which is fixed to either a High (on) or Low (off) state. Addressable LEDs display a colour. The use of three different variables, red, green or blue, defines the colour output on the addressable LEDs. For example, if a purple output was required then the red and blue values were set to a high value while the green value was set to zero. 
+
+The standard LEDs and addressable LEDs were connected to the ESP32 microcontroller output pins. Some of the output pins on the ESP32 have pulse width modulation (PWM) enabled, which allowed us to display a brightness from 0 (off) to 255 (brightest setting) on the standard LEDs. PWM allowed us to reduce the power delivered to the standard LED by having it powered ‘off’ and ‘on’ multiple times a second. The longer the time the LED was ‘off’ compared to ‘on’ gave a dimmer LED. However, when the LED was powered ‘on’ for a longer amount of time than ‘off’, this displayed a brighter LED.
+
+Both standard and addressable LED profiles have a brightness/colour sequence of an undefined length. Each LED profile displayed the next colour/brightness in the array after a specified amount of iterations had passed. An iteration is one of the repetitions of a process that generates a specific outcome. In this program an iteration was one of the many times the program went through the main lighting loop. When creating the LED profile, the user defined how many iterations through the main lighting loop it would take before moving on to the next colour/brightness e.g. each iteration of the main LED array was set to take 200 milliseconds and the next brightness/colour was displayed after three iterations, therefore each brightness was displayed for 600 milliseconds (0.6 seconds) before moving on to the next colour/brightness in the array. 
+
+The program allowed for the use of servos to move parts within a diorama e.g. a level-crossing barrier or a character. If the user were defining a servo profile, the user would set the degree (angle) the servo would turn to and the speed at which it would move. Also, the program allowed for the use of motors. The motors allowed for scenes such as lighthouse lights or a merry-go-round to revolve around a point at a defined speed for a specified length of time. Both the servo and the motor had a trigger, just like the LED profiles, to which it performed the desired reaction when the trigger was true.
+
+Each LED was assigned a LED profile by the user which performed a specific action when a specified trigger came into fruition. Each of these profiles were given a ‘trigger’ which defined what conditions the LED started displaying its lighting/ brightness sequence. The standard triggers were:
+\begin{itemize}
+\item Time- The user defines a start and an end time. When the geographical time falls between the start and end time, the LED profile plays continuously. Once the geographical time surpasses the end time, the LED switches off.
+\item Weather - The user selects a location and is given a list of different weather states. When the weather in the defines location matched the correct state the LED profile played until the weather changes.
+\item Temperature - The user defines a temperature in degrees Celsius. They also define whether they would like the profile to trigger when the current temperature is above or below the defined trigger. 
+\item Button – The button used by the program has two states. When activating the button (in its ‘on’ state) the profile plays. When deactivating the button (in its ‘off’ state) the profile ceases to play. 
+\item Constant – The LED plays continuously when the trigger is set to constant.
+\end {itemize}
+
+The aim of the website was to give the user a manageable way of changing the triggers and LED brightness/colour levels as stated above. The user was able to change, retrieve and edit the LED profiles and then assign LED profiles to the respective LEDs easily. The main purpose of the website was for any user to be able to understand and navigate the website controls even if they have a limited computer knowledge.
+
+\section{Process}
+The process that was adopted to complete the project was the agile methodology. Other methodologies considered were incremental development and continuous integration. The agile methodology was preferred as its main features include rapid production of working code and emphasis on what the customer would want. Specifically, it was decided that Scrum agile methodology would be used. However, this methodology had to be adapted slightly as Scrum was created for use in small teams not a singular person. After reading a helpful and easy to read article on "Scrum for One" by Alex Andrews \cite{Scrum}, it was decided to adopt Scrum with the following changes:
+
+\begin{itemize}
+\item Daily scrum - This is a personal five-minute review of what was completed yesterday, specifically the elements that did not get completed, then plan the task(s) for the day prioritising what was not completed previously.
+\item Sprint - This is completed in the same way as a normal scrum; it is just trying your best to accomplish what was proposed during the daily scrum.
+\item Story time - Normally completed at the end of the week, Story time was time spent away from the desk thinking about the implementation of features and tasks for the next sprint week.
+\item Release - This time was spent with the customer (my supervisor) explaining the tasks completed, future tasks and problems encountered.
+\item Sprint plan- This was where the plan for the next week’s sprint tasks were completed.
+\end {itemize}
+
+\chapter {Requirements}
+At the beginning of this project, a list of requirements was defined. It was then decided that a MoSCoW analysis would be performed on the list of requirements. Each requirement was given one of the four letters which are:
+\begin{itemize}
+\item M - Must have - This is the highest priority letter. These requirements were necessary to the completion of the project and must be prioritised.
+
+\item S - Should have - These requirements were not vital to the completion of the project but were features and additions that were expected to be completed by the end of the project.
+
+\item C - Could have - The 'could have' requirements were desirables that were not vital to the completion of the project but were additions to the project that made it function better. 
+
+\item W - Will not have - The lowest priority letter. these requirements were normally out of the scope of the project and were too ambitious for the time frame so they would not get completed.
+\end{itemize}
+This analysis helped me understand what requirements should be focused on and gave a better picture of what the final product may look like. Requirement one to seven are requirements of the code, while requirement eight to sixteen are website requirements.
+
+\section {RQ1 - ESP 32 must react to the changes made by the user (M)}
+When a LED configuration is changed an any way (trigger/trigger parameters changed, profile changed, LED attached) the ESP32 responds to these changes and displays the new LED configuration correctly. 
+
+\section {RQ2 - Display the brightness and the colours of the LEDs correctly (M)}
+When the brightness or the colour of the LEDs change, for example when the display moves on to the next section of the array, the LEDs will display the new brightness/colour in the intended way.
+
+\section {RQ3 - Perform defined output when trigger is met. (M)}
+While a trigger is active, the LED brightness/colour sequence is displayed to the LED.
+
+\subsection {RQ3.1 - Time trigger(S)}
+The user defines a start time and an end time, when the geographical time falls between these two times the trigger is considered active. 
+
+\subsection {RQ3.2 - Weather trigger(C)}
+The user defines a weather state and the location they are situated in. When the weather specified is happening in the defined location, the trigger is considered active e.g. set trigger to active when it is raining in Bridgend.
+
+\subsection {RQ3.3 - Temperature trigger(C)}
+The user defines a temperature threshold and whether they would want the trigger to be active when the surrounding temperature is above or below the specified temperature threshold. 
+
+\subsection {RQ3.4 - Button trigger(C)}
+When the attached button is pressed, the trigger is set to active. When the button is pressed again the profile is now considered not active.
+
+\subsection {RQ3.5 - Sensor trigger (C)}
+When movement is detected by the attached sensor, the profile is active until the display sequence finishes.
+
+\section {RQ4 - Will have 2-3 pre-set standard and addressable profiles for fire, constant and strobe(W)}
+The completed program will have two or three defined profiles for some of the standard lighting scenarios that the user may want to display. These profiles are fire (a flickering light to simulate flickering flames), constant (a permanant brightness that simulates a room light) and strobe (a flashing light to simulate a warning light).
+
+\section {RQ5 - Play MP3 file when trigger is met (W)}
+When the trigger is considered active and starts playing the lighting sequence, a defined mp3 file is played. For example, when the flashing LEDs for the level crossing is displayed, the warning sound associated with it will be played. 
+
+\section {RQ6 - Will have appripriate storage to store the MP3 audio files(W)}
+To enable the mp3 file to be played, there will be a storage solution that will contain the desired mp3 files to be played as there is not enough memory on the ESP32. A suitable storage soloution would be a SD card. 
+
+\section {RQ7 - The ESP32 must be easy to set up (S)}
+The ESP32 controller must be easily operated and set up by users of all abilities incuding those with limited or no coding backround.
+
+\section {RQ8 - Create a user-friendly website (S) and RQ9 - Easy to use and navigate (S)}
+The website must be easy to operate. This is to ensure that the program is accessible to all abilities. The use of limited inputs via dropdown boxes and buttons, allow users to easily navigate the website and its functionalities to create the desired effects. These two requirments are paired as they both aim to solve the same problem.
+
+\section {RQ10 - Using the Website, define the ‘trigger’ for the outputs implemented. (S)}
+The user is able to change and edit the triggers and its perameters that activate the LED profiles. When the trigger for the Profile is changed, suitable entry methods will appear to define the new trigger perameters. 
+
+\section {RQ11 - Create standard LED profiles (M)}
+The website should have a section where the user can create a standard LED sequence with as little to no restrictions on the final display as possible. 
+
+\section {RQ12 - Set the standard LED profiles to the LEDs (M)}
+Once a standard LED profile has been made, the user should be able to assign this new profile to one of the standard LEDs via a dropdown box.
+
+\section {RQ13 - Create assignable LED profiles (M)}
+The website should have a separate section where the user can create an assignable LED sequence with as little to no restrictions on the final display as possible. 
+
+\section {RQ14 - Set the assignable LED profiles to the assignable LEDs (M)}
+Once an assignable LED profile has been made, the user should be able to allocate this new profile to to one of the assignable LEDs via a dropdown box.
+
+\section {RQ15 - Define the intended motor and servo configuration (C)}
+The user should be able to specify the desired output for the servos and motors. The user should also be able to set the trigger that performs the defined output.
+
+\section {RQ16 - Upload a small MP3 file to play when defined by a trigger (W)}
+The user could be given the option of uploading a MP3 file to the profile. This would then play the MP3 file when the trigger becomes activated.
+
+
+

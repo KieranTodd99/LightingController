@@ -1,0 +1,60 @@
+\chapter{Testing}
+This testing section is used to identify how the testing phase of the project was performed. 
+
+\section{Overall Approach to Testing}
+The approach I used to testing was to use test tables to test if the program met the requirements that was created at the beginning of the project. Each test case will have:
+\begin{itemize}
+\item Test ID - An identifier to refer back to if needed. The ID will be displayed as TCx, with TC meaning test case and x being replaced with the number the test is e.g. TC1.
+
+\item Reference ID - The ID of the requirement the test is testing to if complete.
+
+\item Process - What is the process that is performed to test the requirement. If there is more than one Step to the process they are enumerated.
+
+\item Expected Result - What would have to happen for the test case to be considered a pass.
+
+\item Pass/Fail - Whether the test passed or failed.
+\end{itemize}
+
+The test will be split up into two different tables. One of the test tables refers to all of the tests for the code side of the program and the other is tests for the web side of the program. I have only performed tests for all of the testable requirements.  
+ I have only performed test cases for all of the implemented requirements with the MoSCoW priority of M (must-have), S (should-have) and C (Could-have). 
+
+\newpage
+
+\section {Code Side Test Cases}
+The table that follows is the Test cases for the code side of the project.
+\begin{table}[hbt!]
+\centering
+\begin{tabular}{|c|c|l|l|c|}
+\hline
+Test ID & Reference ID & Process & Expected Result & Pass/Fail \\ \hline
+TC1 & RQ1 & \begin{tabular}[c]{@{}l@{}}TC2 and TC3 given Pass\\  grade\end{tabular} & \begin{tabular}[c]{@{}l@{}}The output changes depending\\  on the changes made by the user\end{tabular} & Pass \\ \hline
+TC2 & RQ2 & \begin{tabular}[c]{@{}l@{}}1.Create a standard LED\\  profile and attach to an\\  unassigned LED\\ \\ 2. Create an assignable \\ LED profile and attach \\ to an unassigned colour \\ LED\end{tabular} & \begin{tabular}[c]{@{}l@{}}The respective LEDs display\\  the correct outputs depending on\\  what was changed\end{tabular} & Pass \\ \hline
+TC3 & RQ3 & \begin{tabular}[c]{@{}l@{}}The implemented \\ triggers are given a pass \\ grade\end{tabular} & \begin{tabular}[c]{@{}l@{}}All of the triggers pass except for\\ weather as it has not been\\ properly implemented\end{tabular} & Pass \\ \hline
+TC4 & RQ3.1 & \begin{tabular}[c]{@{}l@{}}Set the trigger to be \\ Time with appropriate \\ parameters\end{tabular} & \begin{tabular}[c]{@{}l@{}}Time trigger displays profile when\\  trigger is true\end{tabular} & Pass \\ \hline
+TC5 & RQ3.2 & Set trigger to be Weather & Not Implemented. Will Fail. & Fail \\ \hline
+TC6 & RQ3.3 & \begin{tabular}[c]{@{}l@{}}Set trigger to be \\ Temperature with the \\ appropriate values\end{tabular} & \begin{tabular}[c]{@{}l@{}}When the temperature read by the \\ sensor passes over the threshold, \\ the profile is displayed\end{tabular} & Pass \\ \hline
+TC7 & RQ3.5 & Set trigger to be Sensor & \begin{tabular}[c]{@{}l@{}}When motion passed in-front of \\ the sensor, profile is displayed\end{tabular} & Pass \\ \hline
+TC8 & RQ7 & \begin{tabular}[c]{@{}l@{}}Set up the ESP32 with\\  minimal effort\end{tabular} & \begin{tabular}[c]{@{}l@{}}The program isn't as easy to set \\ up as I would have liked to as to \\ set up the website you have to edit\\  the code with your WIFI credentials.\end{tabular} & Fail \\ \hline
+\end{tabular}
+\caption{Test case table for the code side of the tests}
+\label{Code Test Table}
+\end{table}
+
+\newpage
+
+\section {Test Cases For Website}
+The table that follows is the test cases for the testable requirements of the website
+
+\begin{table}[hbt!]
+\centering
+\begin{tabular}{|c|c|l|l|c|}
+\hline
+Test ID & Reference ID & Process & Expected Result & Pass/Fail \\ \hline
+TC9 & RQ8, RQ9 & N/A & \begin{tabular}[c]{@{}l@{}}The website is simple\\  and clearly laid out .\end{tabular} & Pass \\ \hline
+TC10 & RQ10 & \begin{tabular}[c]{@{}l@{}}Set a different trigger\\  than what has already\\  been set.\end{tabular} & \begin{tabular}[c]{@{}l@{}}The LED now responds\\  to the new trigger when\\  active.\end{tabular} & Pass \\ \hline
+TC11 & RQ11, RQ12 & \begin{tabular}[c]{@{}l@{}}Create a standard LED\\  profile and assign it to\\  a standard LED.\end{tabular} & \begin{tabular}[c]{@{}l@{}}Not Implemented.\\  Will Fail.\end{tabular} & Fail \\ \hline
+TC12 & RQ13, RQ14 & \begin{tabular}[c]{@{}l@{}}Create an assignable\\  LED profile and assign\\  it to an assignable LED.\end{tabular} & \begin{tabular}[c]{@{}l@{}}Not Implemented.\\ Will Fail\end{tabular} & Fail \\ \hline
+\end{tabular}
+\caption{Test case table for the web side of the tests}
+\label{Website Test Cases}
+\end{table}
